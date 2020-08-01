@@ -5,6 +5,7 @@ const axios = require('axios');
 require('dotenv').config();
 
 const client = new Discord.Client();
+const channel = client.channels.find('name', process.env.DISCORD_CHANNEL_NAME);
 
 // Set update interval time to 10 minute in production and 30 seconds for development
 const interval = process.env.NODE_ENV === "production" ? 10 * 60 * 1000 : 30 * 1000;
