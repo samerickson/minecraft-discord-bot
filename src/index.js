@@ -1,6 +1,5 @@
 const Discord = require('discord.js');
 const ping = require('minecraft-server-util');
-const axios = require('axios');
 
 require('dotenv').config();
 
@@ -62,14 +61,14 @@ async function update() {
 //  to discord server
 function addPlayer(player) {
     onlinePlayers.push(player);;
-    sendMessage(`${player} has hopped on the minecraft server`);
+    sendMessage(`🎉 ${player} has hopped on the minecraft server`);
 }
 
 // Handles removing a player from onlinePlayers array and sends a respective,
 //  message to discord server
 function removePlayer(player) {
     onlinePlayers.splice(onlinePlayers.indexOf(player), 1);
-    sendMessage(`${player} has left the minecraft server`);
+    sendMessage(`😿 ${player} has left the minecraft server`);
 }
 
 // Sends a message to channel specified in process.env.DISCORD_CHANNEL_NAME
