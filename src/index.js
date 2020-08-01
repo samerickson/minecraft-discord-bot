@@ -6,8 +6,8 @@ require('dotenv').config();
 const client = new Discord.Client();
 client.login(process.env.BOT_TOKEN);
 
-// Set update interval time to 10 minute in production and 30 seconds for development
-const interval = process.env.NODE_ENV === "production" ? 10 * 60 * 1000 : 30 * 1000;
+// Set update interval
+const interval = process.env.INTERVAL;
 let onlinePlayers = [];
 
 client.once('ready', () => {
