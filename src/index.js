@@ -26,8 +26,9 @@ async function getServerData() {
 
 async function update() {
     const serverData = await getServerData();
+    const date = new Date( Date.now());
 
-    console.log('updating');
+    console.log(date.toUTCString(), ':: Online Players = ', onlinePlayers);
 
     // If no players are online, and no players were online on last check,
     //  then there is nothing to do
@@ -49,6 +50,12 @@ async function update() {
     players.forEach(player => {
         if(!onlinePlayers.includes(player)) addPlayer(player);
     });
+
+    // Check to make sure that all players that were online last update,
+    //  are still online. If not remove them from onlinePlayers
+    onlinePlayers.forEach(player => {
+        if(!players.includes(player)) removePlayer(player);
+    });
 }
 
 // Handles adding a player to onlinePlayers array and sending player joined message
@@ -58,12 +65,19 @@ function addPlayer(player) {
     sendMessage(`${player} has hopped on the minecraft server`);
 }
 
+// Handles removing a player from onlinePlayers array and sends a respective,
+//  message to discord server
+function removePlayer(player) {
+    onlinePlayers.splice(onlinePlayers.indexOf(player), 1);
+    sendMessage(`${player} has left the minecraft server`);
+}
+
 // Sends a message to channel specified in process.env.DISCORD_CHANNEL_NAME
 async function sendMessage(message) {
     await client.channels.fetch('739174083228598343').then((channel) => {
+        const date = new Date( Date.now());
+        
         channel.send(message);
-        console.log(`Sent message: "${message}"`)
+        console.log(date.toUTCString(), `:: Sent message: "${message}"`)
     });
 }
-
-//
