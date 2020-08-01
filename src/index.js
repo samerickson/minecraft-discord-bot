@@ -5,7 +5,7 @@ const axios = require('axios');
 require('dotenv').config();
 
 const client = new Discord.Client();
-const channel = client.channels.find('name', process.env.DISCORD_CHANNEL_NAME);
+client.login(process.env.BOT_TOKEN);
 
 // Set update interval time to 10 minute in production and 30 seconds for development
 const interval = process.env.NODE_ENV === "production" ? 10 * 60 * 1000 : 30 * 1000;
@@ -18,9 +18,7 @@ client.once('ready', () => {
     setInterval(() => {
         update();
     }, interval);
-})
-
-client.login(process.env.BOT_TOKEN);
+});
 
 async function getServerData() {
     return await ping(process.env.MINECRAFT_SERVER, 25565);
@@ -28,7 +26,8 @@ async function getServerData() {
 
 async function update() {
     const serverData = await getServerData();
-    console.log(serverData);
+
+    console.log('updating');
 
     // If no players are online, and no players were online on last check,
     //  then there is nothing to do
@@ -47,5 +46,20 @@ async function update() {
     //  that player has just joined
     players.forEach(player => {
         if(!onlinePlayers.includes(player)) addPlayer(player);
+    });
+}
+
+// Handles adding a player to onlinePlayers array and sending player joined message
+//  to discord server
+function addPlayer(player) {
+    onlinePlayers.push('player');;
+    sendMessage(`${player} has hopped on the minecraft server`);
+}
+
+// Sends a message to channel specified in process.env.DISCORD_CHANNEL_NAME
+async function sendMessage(message) {
+    await client.channels.fetch('739174083228598343').then((channel) => {
+        channel.send(message);
+        console.log(`Sent message: "${message}"`)
     });
 }
