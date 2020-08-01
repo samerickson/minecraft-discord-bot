@@ -35,9 +35,11 @@ async function update() {
 
     // Get an array of all players that are currently on the server
     let players = [];
-    serverData.samplePlayers.forEach(player => {
-        players.push(player.name);
-    });
+    if (serverData.samplePlayers != null) {
+        serverData.samplePlayers.forEach(player => {
+            players.push(player.name);
+        });
+    }
 
     // If nobody has joined or left the server, dop nothing
     if (players === onlinePlayers) return;
