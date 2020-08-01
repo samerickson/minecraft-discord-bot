@@ -54,7 +54,7 @@ async function update() {
 // Handles adding a player to onlinePlayers array and sending player joined message
 //  to discord server
 function addPlayer(player) {
-    onlinePlayers.push('player');;
+    onlinePlayers.push(player);;
     sendMessage(`${player} has hopped on the minecraft server`);
 }
 
@@ -65,3 +65,5 @@ async function sendMessage(message) {
         console.log(`Sent message: "${message}"`)
     });
 }
+
+//
