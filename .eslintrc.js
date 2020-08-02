@@ -1,6 +1,7 @@
+/* eslint-disable no-undef */
 module.exports = {
     'env': {
-        'browser': true,
+        'browser': false,
         'es2020': true
     },
     'extends': 'eslint:recommended',
