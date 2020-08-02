@@ -1,3 +1,4 @@
+/*global require */
 const Discord = require('discord.js');
 const ping = require('minecraft-server-util');
 
@@ -77,6 +78,6 @@ async function sendMessage(message) {
         const date = new Date( Date.now());
         
         channel.send(message);
-        console.log(date.toUTCString(), `:: Sent message: "${message}"`)
+        console.log(date.toUTCString(), `:: Sent message: "${message}"`);
     });
 }
