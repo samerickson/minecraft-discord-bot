@@ -1,3 +1,4 @@
+/* eslint-disable no-undef */
 /*global require */
 const Discord = require('discord.js');
 const ping = require('minecraft-server-util');
