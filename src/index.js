@@ -45,7 +45,6 @@ async function update() {
         sendMessage('😁 the server is back online!');
     }
 
-    console.log(serverData);
     console.log(date, ':: Online Players = ', onlinePlayers);
 
     // If no players are online, and no players were online on last check,
