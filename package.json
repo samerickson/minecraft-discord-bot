@@ -1,7 +1,7 @@
 {
   "name": "discord-minecraft-bot",
-  "version": "1.0.0",
-  "description": "Notifies users when a player joins or leaves a minecraft server.",
+  "version": "1.1.0",
+  "description": "Notifies users when a player joins or leaves a minecraft server. It will also notify you when a server goes offline/online.",
   "main": "index.js",
   "scripts": {
     "start": "node src/index.js",

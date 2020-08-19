@@ -1,5 +1,7 @@
 # Minecraft Join/Leave Notifiying Discord Bot
 
+This Bot notifies users when a player joins or leaves a minecraft server. It also notifies users when the minecraft server is online/offline.
+
 ## Getting started
 
 ### Setting up .env
@@ -26,3 +28,8 @@ npm install pm2 -g
 pm2 start index.js
 ```
 
+## Roadmap
+
+- [] Implement a way for players to send messages to bot to query server information:
+    - [] Get server status
+    - [] Get currentOnline players
