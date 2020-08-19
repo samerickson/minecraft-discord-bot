@@ -11,6 +11,7 @@ client.login(process.env.BOT_TOKEN);
 // Set update interval
 const interval = process.env.INTERVAL;
 let serverDown = false;
+let playersChanged = false;
 let onlinePlayers = [];
 
 client.once('ready', () => {
@@ -45,8 +46,6 @@ async function update() {
         sendMessage('😁 the server is back online!');
     }
 
-    console.log(date, ':: Online Players = ', onlinePlayers);
-
     // If no players are online, and no players were online on last check,
     //  then there is nothing to do
     if(serverData.onlinePlayers === 0 && onlinePlayers.length === 0) return;
@@ -65,14 +64,26 @@ async function update() {
     // If a player is online, but is not in the onlinePlayers, then
     //  that player has just joined
     players.forEach(player => {
-        if(!onlinePlayers.includes(player)) addPlayer(player);
+        if(!onlinePlayers.includes(player)) {
+            addPlayer(player);
+            playersChanged = true;
+        }
     });
 
     // Check to make sure that all players that were online last update,
     //  are still online. If not remove them from onlinePlayers
     onlinePlayers.forEach(player => {
-        if(!players.includes(player)) removePlayer(player);
+        if(!players.includes(player)) {
+            removePlayer(player);
+            playersChanged = true;
+        }
     });
+
+    // Only log output if there was a change in player activity
+    if(playersChanged) {
+        playersChanged = false;
+        console.log(date, ':: Online Players = ', onlinePlayers);
+    }
 }
 
 // Handles adding a player to onlinePlayers array and sending player joined message
