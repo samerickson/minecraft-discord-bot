@@ -10,6 +10,7 @@ client.login(process.env.BOT_TOKEN);
 
 // Set update interval
 const interval = process.env.INTERVAL;
+let serverDown = false;
 let onlinePlayers = [];
 
 client.once('ready', () => {
@@ -21,15 +22,31 @@ client.once('ready', () => {
     }, interval);
 });
 
-async function getServerData() {
-    return await ping(process.env.MINECRAFT_SERVER, 25565);
-}
-
 async function update() {
-    const serverData = await getServerData();
-    const date = new Date( Date.now());
+    const date = new Date( Date.now()).toUTCString();
+    let serverData;
 
-    console.log(date.toUTCString(), ':: Online Players = ', onlinePlayers);
+    // Ping minecraft server to get current online players
+    //  or return if server is down
+    try {
+        serverData = await ping(process.env.MINECRAFT_SERVER, 25565);
+    } catch(error) {
+        if(!serverDown) {
+            serverDown = true;
+            // sendMessage('🧨💥 The server has crashed...');
+            console.log( date, ':: Server is offline');
+        }
+        return;
+    }
+
+    // If the server was down before, but is now back online, send a message!
+    if(serverDown) {
+        serverDown = false;
+        sendMessage('😁 the server is back online!');
+    }
+
+    console.log(serverData);
+    console.log(date, ':: Online Players = ', onlinePlayers);
 
     // If no players are online, and no players were online on last check,
     //  then there is nothing to do
