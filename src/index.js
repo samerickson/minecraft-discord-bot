@@ -34,7 +34,7 @@ async function update() {
     } catch(error) {
         if(!serverDown) {
             serverDown = true;
-            // sendMessage('🧨💥 The server has crashed...');
+            sendMessage('🧨💥 The server has crashed...');
             console.log( date, ':: Server is offline');
         }
         return;
